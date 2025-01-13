@@ -26,6 +26,7 @@ class SpeedTestClient:
         
         while True:
             try:
+                #data, (server_ip, _) = sock.recvfrom(512)
                 data, (server_ip, _) = sock.recvfrom(1024)
                 
                 # Unpack offer message

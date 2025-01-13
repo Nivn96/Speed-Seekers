@@ -49,7 +49,6 @@ class SpeedTestServer:
         """Continuously broadcast offer messages."""
         sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         sock.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
-        
         print(f"\033[92mServer started, listening on IP address {self.ip_address}\033[0m")
         
         while self.running:
@@ -99,7 +98,6 @@ class SpeedTestServer:
             
             # Create UDP socket for sending data
             sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-            
             for segment_num in range(total_segments):
                 remaining = file_size - (segment_num * segment_size)
                 payload_size = min(segment_size, remaining)
@@ -114,6 +112,7 @@ class SpeedTestServer:
                 
                 payload = header + b'0' * payload_size
                 sock.sendto(payload, address)
+
                 
             sock.close()
             
@@ -156,6 +155,7 @@ class SpeedTestServer:
                 # Handle UDP requests
                 udp_socket.settimeout(1)
                 try:
+                    #data, address = udp_socket.recvfrom(512)
                     data, address = udp_socket.recvfrom(1024)
                     thread = threading.Thread(
                         target=self._handle_udp_client,
